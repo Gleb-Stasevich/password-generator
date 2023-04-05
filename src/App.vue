@@ -1,12 +1,18 @@
 <template>
-  <!--template-->
+  <password-generator></password-generator>
+  <password-history></password-history>
 </template>
 
 <script>
 
-export default {
+import passwordGenerator from '@/components/passwordGenerator.vue';
+import passwordHistory from '@/components/passwordHistory.vue';
 
-}
+export default {
+  components: {
+    passwordGenerator, passwordHistory
+  },
+};
 </script>
 
 <style lang="scss">
