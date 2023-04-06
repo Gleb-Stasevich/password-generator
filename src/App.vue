@@ -1,6 +1,8 @@
 <template>
-  <password-generator></password-generator>
-  <password-history></password-history>
+  <div class="app">
+    <password-generator></password-generator>
+    <password-history></password-history>
+  </div>
 </template>
 
 <script>
@@ -33,9 +35,20 @@ body {
   background-color: black;
 }
 
+
 li,
 a {
+  cursor: pointer;
   list-style: none;
   text-decoration: none;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 992px;
+  margin: auto;
 }
 </style>
