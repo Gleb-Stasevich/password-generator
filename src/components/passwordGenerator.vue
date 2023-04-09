@@ -15,8 +15,11 @@
 <script>
 
 export default {
-
+    mounted() {
+        this.$store.commit('password/generatePassword')
+    }
 }
+
 </script>
   
 <style lang="scss">
@@ -24,11 +27,6 @@ $orange: #f8ef00;
 $light: #fafafa;
 $aqua: #00f0ff;
 $grey: #bbbbbb;
-
-// * {
-//     font-family: "Barlow", sans-serif;
-//     font-family: "Tomorrow", sans-serif;
-// }
 
 .generator {
 
@@ -54,6 +52,26 @@ $grey: #bbbbbb;
         color: $orange;
     }
 
+}
+
+@media(max-width:1115px) {
+    .generator {
+
+        &__container {
+            margin: auto;
+            text-align: center;
+        }
+
+        &__content {
+            padding-top: 50px;
+        }
+    }
+}
+
+@media (max-width: 370px) {
+    .generator__title {
+        font-size: 35px;
+    }
 }
 </style>
   

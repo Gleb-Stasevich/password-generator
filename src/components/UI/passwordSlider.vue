@@ -1,15 +1,38 @@
 <template>
-    <input class="slider" type="range" min="0" max="30" value="0" step="1">
+    <span class="slider-value"></span>
+    <input @input="updatePassword" class="slider" type="range" min="0" max="30" value="10" step="1">
 </template>
   
 <script>
 
 export default {
-    name: 'password-slider'
+    name: 'password-slider',
+    mounted() {
+        const input = document.querySelector('.slider');
+        const span = document.querySelector('.slider-value');
+        this.$store.state.password.inputValue = this.$store.state.password.sliderValue = span.textContent = input.value;
+    },
+    methods: {
+        updatePassword(e) {
+            const input = document.querySelector('.slider');
+            const span = document.querySelector('.slider-value');
+            this.$store.state.password.sliderValue = span.textContent = input.value;
+            this.$store.commit('password/generatePassword');
+            this.$store.commit('password/updateIcon');
+        }
+    }
 }
 </script>
   
 <style lang="scss" scoped>
+span {
+    display: block;
+    position: absolute;
+    padding-top: 35px;
+    padding-left: 193px;
+    color: white;
+}
+
 $orange: #f8ef00;
 $aqua: #00f0ff;
 
@@ -79,6 +102,12 @@ $aqua: #00f0ff;
 
 .slider[type=range]:focus::-ms-fill-upper {
     background: $aqua;
+}
+
+@media (max-width: 640px) {
+    .slider {
+        width: 100% !important;
+    }
 }
 </style>
   

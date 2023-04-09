@@ -3,6 +3,7 @@
     <password-generator></password-generator>
     <password-history></password-history>
   </div>
+  <span>{{ $store.getters.setPassword }}</span>
 </template>
 
 <script>
@@ -35,6 +36,10 @@ body {
   background-color: black;
 }
 
+section {
+  padding: 0px 15px;
+}
+
 
 li,
 a {
@@ -46,9 +51,15 @@ a {
 .app {
   height: 100vh;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-around;
   align-items: center;
-  max-width: 992px;
   margin: auto;
+}
+
+@media(max-width:1115px) {
+  .app {
+    display: block;
+  }
 }
 </style>

@@ -4,22 +4,22 @@
             <div class="checkboxes__content">
                 <div class="checkboxes__upper">
                     <div class="checkbox">
-                        <input id="1" type="checkbox">
-                        <label for="1">Uppercase letters</label>
+                        <input @change="updateCheckbox" id="upperCase" type="checkbox">
+                        <label for="upperCase">Uppercase letters</label>
                     </div>
                     <div class="checkbox">
-                        <input id="2" type="checkbox">
-                        <label for="2">Lowercase letters</label>
+                        <input @change="updateCheckbox" checked id="lowerCase" type="checkbox">
+                        <label for="lowerCase">Lowercase letters</label>
                     </div>
                 </div>
                 <div class="checkboxes__lower">
                     <div class="checkbox">
-                        <input id="3" type="checkbox">
-                        <label for="3">Numbers</label>
+                        <input @change="updateCheckbox" checked id="number" type="checkbox">
+                        <label for="number">Numbers</label>
                     </div>
                     <div class="checkbox last">
-                        <input id="4" type="checkbox">
-                        <label for="4">Symbols</label>
+                        <input @change="updateCheckbox" id="symbol" type="checkbox">
+                        <label for="symbol">Symbols</label>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,17 @@
 <script>
 
 export default {
-    name: 'password-checkbox'
+    name: 'password-checkbox',
+    methods: {
+        updateCheckbox(e) {
+            let checkbox = e.target;
+            if (!checkbox.checked) {
+                this.$store.state.password.checked[checkbox.id] = false;
+            } else {
+                this.$store.state.password.checked[checkbox.id] = true;
+            }
+        }
+    }
 }
 </script>
   
@@ -101,6 +111,31 @@ $light: #fafafa;
 
 .last {
     padding-left: 150px;
+}
+
+@media (max-width: 1115px) {
+    .checkboxes__container {
+        margin: auto;
+    }
+}
+
+@media (max-width: 560px) {
+    .checkboxes {
+
+        &__upper,
+        &__lower {
+            flex-direction: column;
+        }
+
+        .last {
+            padding: 20px 6px 0px 0px;
+        }
+
+        .checkbox:nth-child(2) {
+            padding-left: 2px;
+            padding-top: 20px;
+        }
+    }
 }
 </style>
   

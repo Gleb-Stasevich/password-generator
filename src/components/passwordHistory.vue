@@ -4,73 +4,19 @@
             <div class="history__content">
                 <h2 class="history__title">Password history</h2>
                 <div class="history__blocks">
-                    <div class="block">
+                    <div class="block" v-for="password in $store.state.password.history" :key="password.id">
                         <div class="block__data">
-                            <span class="password">^d3>~9YDA8s}cWN9L_P^</span>
+                            <span class="password">{{ password.password }}</span>
                             <br>
-                            <span class="date">1a4Txe3m*%Qm^vdXs!</span>
+                            <span class="date">{{ password.date }}</span>
                         </div>
                         <div class="block__icon">
-                            <a class="icon-copy"></a>
+                            <a @click="copyPassword" class="icon-copy"></a>
                         </div>
                     </div>
 
-                    <div class="block">
-                        <div class="block__data">
-                            <span class="password">^d3>~9YDA8s}cWN9L_P^</span>
-                            <br>
-                            <span class="date">1a4Txe3m*%Qm^vdXs!</span>
-                        </div>
-                        <div class="block__icon">
-                            <a class="icon-copy"></a>
-                        </div>
-                    </div>
-
-                    <div class="block">
-                        <div class="block__data">
-                            <span class="password">^d3>~9YDA8s}cWN9L_P^</span>
-                            <br>
-                            <span class="date">1a4Txe3m*%Qm^vdXs!</span>
-                        </div>
-                        <div class="block__icon">
-                            <a class="icon-copy"></a>
-                        </div>
-                    </div>
-
-                    <div class="block">
-                        <div class="block__data">
-                            <span class="password">^d3>~9YDA8s}cWN9L_P^</span>
-                            <br>
-                            <span class="date">1a4Txe3m*%Qm^vdXs!</span>
-                        </div>
-                        <div class="block__icon">
-                            <a class="icon-copy"></a>
-                        </div>
-                    </div>
-
-                    <div class="block">
-                        <div class="block__data">
-                            <span class="password">^d3>~9YDA8s}cWN9L_P^</span>
-                            <br>
-                            <span class="date">1a4Txe3m*%Qm^vdXs!</span>
-                        </div>
-                        <div class="block__icon">
-                            <a class="icon-copy"></a>
-                        </div>
-                    </div>
-
-                    <div class="block">
-                        <div class="block__data">
-                            <span class="password">^d3>~9YDA8s}cWN9L_P^</span>
-                            <br>
-                            <span class="date">1a4Txe3m*%Qm^vdXs!</span>
-                        </div>
-                        <div class="block__icon">
-                            <a class="icon-copy"></a>
-                        </div>
-                    </div>
                 </div>
-                <span class="clear">Clear history</span>
+                <span @click="clearHistory" class="clear">Clear history</span>
             </div>
         </div>
     </section>
@@ -80,11 +26,49 @@
 
 export default {
 
+    methods: {
+        clearHistory() {
+            this.$store.state.password.history = [];
+            localStorage.clear();
+        },
+        copyPassword(e) {
+            const password = e.target.parentNode.parentNode.querySelector('.password').textContent;
+            const icon = e.target;
+            icon.classList.add('copied');
+            setTimeout(() => {
+                icon.classList.remove('copied');
+            }, 500);
+
+            let textarea = document.createElement('textarea');
+            textarea.id = 'temp';
+            textarea.style.height = 0;
+            document.body.appendChild(textarea);
+
+            textarea.value = password;
+            let selector = document.querySelector('#temp');
+            selector.select();
+            document.execCommand('copy');
+
+            document.body.removeChild(textarea);
+        },
+    },
+
+    mounted() {
+        let keys = Object.keys(localStorage);
+        for (let key of keys) {
+            this.$store.state.password.history.push(
+                {
+                    password: key,
+                    date: localStorage.getItem(key),
+                }
+            )
+        }
+    }
 
 }
 </script>
   
-<style lang="scss">
+<style scoped lang="scss">
 $orange: #f8ef00;
 $light: #fafafa;
 $grey: #bbbbbb;
@@ -94,7 +78,7 @@ $aqua: #00f0ff;
 
 
     &__container {
-        max-width: 390px;
+        width: 390px;
     }
 
     &__blocks {
@@ -120,6 +104,16 @@ $aqua: #00f0ff;
     &__icon {
         margin-left: 10px;
     }
+
+    &__data {
+        width: 390px;
+    }
+}
+
+.password {
+    display: block;
+    height: 19px;
+    width: 390px;
 }
 
 .block:not(:first-child) {
@@ -158,11 +152,16 @@ $aqua: #00f0ff;
     letter-spacing: 0.2em;
     color: #F8EF00;
     transition: all 0.4s ease;
+    caret-color: transparent;
 }
 
 .clear:hover {
     color: $aqua;
     transition: all 0.4s ease;
+}
+
+.icon-copy {
+    margin-right: 5px;
 }
 
 .icon-copy:before {
@@ -173,6 +172,76 @@ $aqua: #00f0ff;
 .icon-copy:hover:before {
     color: $orange;
     transition: all 0.4s ease;
+}
+
+.copied:hover:before {
+    color: green;
+    transition: all 0.4s ease;
+}
+
+@media(max-width:1115px) {
+    .history {
+
+        &__container {
+            text-align: center;
+            margin: auto;
+        }
+
+        &__content {
+            padding-top: 50px;
+        }
+
+    }
+}
+
+@media (max-width: 560px) {
+    .password {
+        font-size: 14px;
+        width: 320px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .history__container,
+    .block__data {
+        width: 100%;
+    }
+
+    .block {
+        flex-direction: column;
+    }
+
+    .password {
+        font-size: 13px;
+        margin: auto;
+    }
+
+    .icon-copy {
+        display: block;
+        margin-right: 0px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 370px) {
+    .history__container {
+        text-align: start;
+
+    }
+
+    .block {
+        align-items: start;
+    }
+
+    .history {
+        width: 100%;
+    }
+
+    .password {
+        display: inline;
+        font-size: 11px;
+    }
 }
 </style>
   

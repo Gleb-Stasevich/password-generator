@@ -1,9 +1,9 @@
 <template>
     <div class="input">
-        <input value="12345" type="text">
+        <input readonly maxlength="30" :value="this.$store.state.password.inputValue" type="text">
         <div class="input__icons">
-            <span class="icon-complexity-0 first-icon"></span>
-            <a class="icon-update second-icon"></a>
+            <img src="@/../public/img/complexity-0.png" class="complexity">
+            <a @click="$store.commit('password/generatePassword')" class="icon-update second-icon"></a>
         </div>
     </div>
 </template>
@@ -11,7 +11,9 @@
 <script>
 
 export default {
-    name: 'password-input'
+    name: 'password-input',
+    methods: {
+    }
 }
 </script>
   
@@ -27,8 +29,7 @@ input {
     padding-left: 20px;
     border: 2px solid $aqua;
     background: rgba(0, 240, 255, 0.1);
-    outline: none;
-    pointer-events: none;
+
 
 }
 
@@ -45,7 +46,14 @@ input {
     }
 }
 
-.first-icon {
+img {
+    position: absolute;
+    right: 27px;
+    width: 16px;
+    height: 17px;
+}
+
+.complexity {
     margin-right: 12px;
 }
 
@@ -56,6 +64,31 @@ input {
 .second-icon:hover:before {
     color: $orange;
     transition: all 0.4s ease;
+}
+
+@media (max-width: 640px) {
+    .input {
+        input {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 450px) {
+
+    .input__icons {
+        transform: translateY(50%);
+        position: relative;
+        top: 0;
+        left: 0;
+        display: block;
+    }
+
+    .complexity {
+        position: relative;
+        top: 2px;
+        right: 0;
+    }
 }
 </style>
   
