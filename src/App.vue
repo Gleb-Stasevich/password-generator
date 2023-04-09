@@ -7,13 +7,13 @@
 </template>
 
 <script>
-
-import passwordGenerator from '@/components/passwordGenerator.vue';
-import passwordHistory from '@/components/passwordHistory.vue';
+import passwordGenerator from "@/components/passwordGenerator.vue";
+import passwordHistory from "@/components/passwordHistory.vue";
 
 export default {
   components: {
-    passwordGenerator, passwordHistory
+    passwordGenerator,
+    passwordHistory,
   },
 };
 </script>
@@ -40,7 +40,6 @@ section {
   padding: 0px 15px;
 }
 
-
 li,
 a {
   cursor: pointer;
@@ -57,7 +56,7 @@ a {
   margin: auto;
 }
 
-@media(max-width:1115px) {
+@media (max-width: 1115px) {
   .app {
     display: block;
   }

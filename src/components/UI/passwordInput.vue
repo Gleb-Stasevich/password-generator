@@ -2,7 +2,7 @@
     <div class="input">
         <input readonly maxlength="30" :value="this.$store.state.password.inputValue" type="text">
         <div class="input__icons">
-            <img src="@/../public/img/complexity-0.png" class="complexity">
+            <img src="@/../public/img/complexity-3.png" class="complexity">
             <a @click="$store.commit('password/generatePassword')" class="icon-update second-icon"></a>
         </div>
     </div>

@@ -1,29 +1,31 @@
 <template>
     <span class="slider-value"></span>
-    <input @input="updatePassword" class="slider" type="range" min="0" max="30" value="10" step="1">
+    <input @input="updatePassword" class="slider" type="range" min="0" max="30" value="10" step="1" />
 </template>
-  
-<script>
 
+<script>
 export default {
-    name: 'password-slider',
+    name: "password-slider",
     mounted() {
-        const input = document.querySelector('.slider');
-        const span = document.querySelector('.slider-value');
-        this.$store.state.password.inputValue = this.$store.state.password.sliderValue = span.textContent = input.value;
+        const input = document.querySelector(".slider");
+        const span = document.querySelector(".slider-value");
+        this.$store.state.password.inputValue =
+            this.$store.state.password.sliderValue =
+            span.textContent =
+            input.value;
     },
     methods: {
         updatePassword(e) {
-            const input = document.querySelector('.slider');
-            const span = document.querySelector('.slider-value');
+            const input = document.querySelector(".slider");
+            const span = document.querySelector(".slider-value");
             this.$store.state.password.sliderValue = span.textContent = input.value;
-            this.$store.commit('password/generatePassword');
-            this.$store.commit('password/updateIcon');
-        }
-    }
-}
+            this.$store.commit("password/generatePassword");
+            this.$store.commit("password/updateIcon");
+        },
+    },
+};
 </script>
-  
+
 <style lang="scss" scoped>
 span {
     display: block;
@@ -36,23 +38,22 @@ span {
 $orange: #f8ef00;
 $aqua: #00f0ff;
 
-.slider[type=range] {
+.slider[type="range"] {
     margin-top: 64px;
     appearance: none;
     width: 100%;
 }
 
-.slider[type=range]:focus {
+.slider[type="range"]:focus {
     outline: none;
 }
 
-.slider[type=range]::-webkit-slider-runnable-track {
+.slider[type="range"]::-webkit-slider-runnable-track {
     height: 3px;
-    border: 3px solid #00F0FF;
-
+    border: 3px solid #00f0ff;
 }
 
-.slider[type=range]::-webkit-slider-thumb {
+.slider[type="range"]::-webkit-slider-thumb {
     margin-top: -10.5px;
     height: 21px;
     width: 21px;
@@ -61,13 +62,12 @@ $aqua: #00f0ff;
     -webkit-appearance: none;
 }
 
-.slider[type=range]::-moz-range-track {
+.slider[type="range"]::-moz-range-track {
     height: 3px;
-    border: 3px solid #00F0FF;
-
+    border: 3px solid #00f0ff;
 }
 
-.slider[type=range]::-moz-range-thumb {
+.slider[type="range"]::-moz-range-thumb {
     margin-top: -10.5px;
     height: 21px;
     width: 21px;
@@ -75,20 +75,20 @@ $aqua: #00f0ff;
     cursor: pointer;
 }
 
-.slider[type=range]::-ms-track {
+.slider[type="range"]::-ms-track {
     height: 3px;
     border: 3px solid $aqua;
 }
 
-.slider[type=range]::-ms-fill-lower {
+.slider[type="range"]::-ms-fill-lower {
     background: $aqua;
 }
 
-.slider[type=range]::-ms-fill-upper {
+.slider[type="range"]::-ms-fill-upper {
     background: $aqua;
 }
 
-.slider[type=range]::-ms-thumb {
+.slider[type="range"]::-ms-thumb {
     margin-top: -10.5px;
     height: 21px;
     width: 21px;
@@ -96,11 +96,11 @@ $aqua: #00f0ff;
     cursor: pointer;
 }
 
-.slider[type=range]:focus::-ms-fill-lower {
+.slider[type="range"]:focus::-ms-fill-lower {
     background: $aqua;
 }
 
-.slider[type=range]:focus::-ms-fill-upper {
+.slider[type="range"]:focus::-ms-fill-upper {
     background: $aqua;
 }
 
@@ -110,4 +110,3 @@ $aqua: #00f0ff;
     }
 }
 </style>
-  
